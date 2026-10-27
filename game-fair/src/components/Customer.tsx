@@ -1,47 +1,54 @@
-import { useEffect, useState } from "react";
-import { useStall } from "../context/StallContext";
-import { imgFemales, imgMales } from "../constance/navLinks";
-import type { customerProps, startPositionType } from "../typs/gameTyps";
-import { randBetween, randPosition } from "../utils/random";
+import { useEffect, useMemo, useState } from "react";
+import type { customerProps } from "../typs/gameTyps";
+import { randBetween } from "../utils/random";
+import { Shopper } from "./world/Shopper";
+import { useWorld } from "./world/WorldContext";
+import { frontOf, slotPlacement } from "./world/layout";
 
+/* נקודה אקראית בכיכר — בין הקרוסלה לדוכנים */
+const randomSpot = () => {
+    const a = Math.random() * Math.PI * 2;
+    const r = randBetween(7, 14);
+    return { x: Math.sin(a) * r, z: Math.cos(a) * r };
+};
+
+/* לקוח וירטואלי: מסתובב ביריד ומדי פעם ניגש לדוכן שהוא רוצה לקנות בו */
 export const Customer = ({ customer }: customerProps) => {
     const { nickname, gender, targetStallId, ageGroup, targetStallIds, purchases } = customer;
+    const { stalls, slotOf } = useWorld();
 
-    const [position, setPosition] = useState<startPositionType>(randPosition);
-    const [stepMs, setStepMs] = useState(() => Math.round(randBetween(3000, 6000)));
+    const [stepMs] = useState(() => Math.round(randBetween(3000, 6000)));
+    const [tick, setTick] = useState(0);
 
     useEffect(() => {
-        const intervalId = setInterval(() => { setPosition(randPosition) }, stepMs);
+        const intervalId = setInterval(() => { setTick((t) => t + 1) }, stepMs);
         return () => { clearInterval(intervalId); };
-
     }, [stepMs])
 
+    // רשימת הדוכנים שהלקוח מעוניין בהם
+    const wanted = useMemo(() => {
+        const ids = new Set<number>([targetStallId, ...((targetStallIds ?? []) as number[])].filter(Boolean));
+        return stalls.filter((s) => ids.has(s.id));
+    }, [stalls, targetStallId, targetStallIds]);
 
-    const pickImage = () => {
-        if (gender === "FEMALE") {
-            return imgFemales[Math.floor(Math.random() * imgFemales.length)];
+    // בכל "צעד": פעם אחת לדוכן מבוקש, פעם אחת שיטוט
+    const goingToStall = wanted.length > 0 && tick % 2 === 1;
+    const target = useMemo(() => {
+        if (goingToStall) {
+            const s = wanted[Math.floor(tick / 2) % wanted.length];
+            const f = frontOf(slotPlacement(slotOf(s)), 2.8);
+            return { x: f.x + randBetween(-0.8, 0.8), z: f.z + randBetween(-0.8, 0.8) };
         }
-        return imgMales[Math.floor(Math.random() * imgMales.length)];
-    };
-
-    const [img, setImg] = useState<string>(pickImage);
-
-
-
-
-
+        return randomSpot();
+    }, [tick, goingToStall, wanted, slotOf]);
 
     return (
-        <div
-            className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center ease-linear transition-[left,top]"
-            style={{
-                left: position.startX + "%",
-                top: position.startY + "%",
-                transitionDuration: stepMs + "ms",
-            }}
-        >
-            <span className="text-4xl leading-none">{img}</span>
-            <span className="text-xs">{nickname}</span>
-        </div>
+        <Shopper
+            name={nickname}
+            female={gender === "FEMALE"}
+            old={ageGroup === "OLD"}
+            target={target}
+            buying={goingToStall && (purchases?.length ?? 0) > 0}
+        />
     );
 };

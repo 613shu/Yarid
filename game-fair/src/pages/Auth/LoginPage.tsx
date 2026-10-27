@@ -61,12 +61,13 @@ const LoginPage = () => {
     });
 
 
-    return <>
+    return <div dir="rtl" className="pt-6">
 
         {loginMutation.isPending && <h1 className="fair-note mt-8 text-lg">טוען...</h1>}
-        {loginMutation.isError && <h1 className="fair-note mt-8 text-lg text-[#ff9b9b]!">{loginMutation.error.message}</h1>}
+        {loginMutation.isError && <h1 className="fair-note fair-note-error mt-8 text-lg">{loginMutation.error.message}</h1>}
 
-        <form onSubmit={handleSubmit(connect)} className="fair-panel fair-gate [--gate-title:'כניסה_ליריד'] mx-auto mb-16 flex w-fit flex-col gap-2">
+        <form onSubmit={handleSubmit(connect)} className="fair-panel fair-gate mx-auto mb-16 flex w-fit flex-col gap-2" data-title="כניסה ליריד">
+            <p className="mb-4 text-center text-parchment/75">הפנסים כבר דולקים. ברוכים השבים!</p>
 
 
             <FormInput type="email" id="email" lable="אימייל" registration={register("email")} errors={errors.email?.message} />
@@ -74,12 +75,12 @@ const LoginPage = () => {
             <FormInput type="password" id="password" lable="סיסמא" registration={register("password")} errors={errors.password?.message} />
 
 
-            <button type="submit" className="fair-btn mt-4 w-full">כניסה</button>
+            <button type="submit" className="fair-btn fair-btn-gold mt-4 w-full">כניסה</button>
         </form>
 
 
 
-    </>
+    </div>
 
 
 

@@ -53,12 +53,13 @@ const RegisterPage = () => {
 
 
 
-    return <>
+    return <div dir="rtl" className="pt-6">
         {registerMutation.isPending && <h1 className="fair-note mt-8 text-lg">טוען...</h1>}
         {registerMutation.isSuccess && <h1 className="fair-note mt-8 text-lg">{" ברוך הבא " + user?.displayName + " היקר "}</h1>}
-        {registerMutation.isError && <h1 className="fair-note mt-8 text-lg text-[#ff9b9b]!">{registerMutation.error.message}</h1>}
+        {registerMutation.isError && <h1 className="fair-note fair-note-error mt-8 text-lg">{registerMutation.error.message}</h1>}
 
-        <form onSubmit={handleSubmit(newRegister)} className="fair-panel fair-gate [--gate-title:'כרטיס_כניסה_חדש'] mx-auto mb-16 flex w-fit flex-col gap-2">
+        <form onSubmit={handleSubmit(newRegister)} className="fair-panel fair-gate mx-auto mb-16 flex w-fit flex-col gap-2" data-title="כרטיס כניסה חדש">
+            <p className="mb-4 text-center text-parchment/75">הצטרפו ליריד, פתחו דוכן ראשון והתחילו למכור.</p>
 
 
 
@@ -68,9 +69,9 @@ const RegisterPage = () => {
 
             <FormInput type="text" id="displayName" lable="שם" registration={register("displayName")} errors={errors.displayName?.message} />
 
-            <button type="submit" className="fair-btn mt-4 w-full">הרשמה</button>
+            <button type="submit" className="fair-btn fair-btn-gold mt-4 w-full">הרשמה</button>
         </form>
-    </>
+    </div>
 
 }
 

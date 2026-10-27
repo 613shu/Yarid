@@ -1,3 +1,4 @@
+import { Loader } from "../components/hud/Loader"
 import { useQuery } from "@tanstack/react-query"
 import { Product } from "../components/Product"
 import { api } from "../api/axiosInstance"
@@ -20,14 +21,14 @@ export const ProductSection = () => {
 
     if (isLoading)
         return <>
-            <h1 className="fair-note mt-28 animate-pulse text-xl">טוען מוצרים---</h1>
+            <Loader text="טוען מוצרים..." />
         </>
     if (error)
-        return <h1 className="fair-note mt-28 text-xl text-[#ff9b9b]!">שגיאה בטעינת המוצרים</h1>
+        return <h1 className="fair-note fair-note-error mt-20 text-xl">שגיאה בטעינת המוצרים</h1>
 
     return (
 
-        <main dir="rtl" className="px-6 pt-24 pb-16">
+        <main dir="rtl" className="px-6 pt-10 pb-16">
             <div className="mx-auto max-w-7xl">
                 {step != "PRODUCT" && <h1 className="fair-banner mb-16">המוצרים שלנו</h1>}
                 {step === "PRODUCT" && <h1 className="fair-banner mb-16"> בחר מוצר עבור הדוכן החדש</h1>}
@@ -54,4 +55,3 @@ export const ProductPage = () => {
 
 
 }
-

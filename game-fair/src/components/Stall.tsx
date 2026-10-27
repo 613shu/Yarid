@@ -1,38 +1,25 @@
-import { useQuery } from "@tanstack/react-query"
 import type { decorationType, stallProps } from "../typs/gameTyps"
-import { useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
-import { api } from "../api/axiosInstance"
+import { Booth } from "./world/Booth"
+import { slotPlacement } from "./world/layout"
+import { useWorld } from "./world/WorldContext"
 
-
-
-
+/* דוכן בתוך עולם התלת-ממד (חייב להיות מרונדר בתוך FairWorld) */
 export const Stall = ({ stall }: stallProps) => {
+    const { slotOf, select, selectedId, hover, hoveredId } = useWorld();
+    const p = slotPlacement(slotOf(stall));
 
-    return <>
-        <div dir="rtl" className="fair-booth">
-
-            <div className="fair-booth-awning" />
-
-            <h1 className="fair-booth-sign">
-                דוכן {stall.name}
-            </h1>
-
-            <h2 className="fair-booth-goods break-words">
-                {stall.product.name}
-            </h2>
-
-            <p className="fair-booth-counter">
-                {stall.price} <span className="ms-1 font-body text-sm font-medium text-parchment/80">רובל ליחידה</span>
-            </p>
-            <div className="fair-booth-bunting">
-                <h1 className="fair-booth-bunting-title">קישוטים</h1>
-                {stall.decorations.map((d:decorationType) => 
-                    
-                   <p key={d.id} className="fair-booth-bunting-flag">{d.name}</p>
-                    
-                )}
-            </div>
-        </div>
-    </>
+    return (
+        <group position={[p.x, 0, p.z]} rotation={[0, p.rotY, 0]}>
+            <Booth
+                name={`דוכן ${stall.name}`}
+                goods={stall.product?.name ?? ""}
+                price={stall.price}
+                decorations={(stall.decorations ?? []).map((d: decorationType) => d.name)}
+                hot={hoveredId === stall.id}
+                selected={selectedId === stall.id}
+                onSelect={() => select(stall.id)}
+                onHover={(on) => hover(on ? stall.id : null)}
+            />
+        </group>
+    )
 }
