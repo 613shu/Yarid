@@ -21,7 +21,12 @@ export const StallDrawer = () => {
         setEditDecorations(false);
     }, [selectedId]);
 
-
+const closeEditDecorations = () => {
+    setStep("NAME");          // הערך ההתחלתי של step, כמו שמוגדר ב-StallContext
+    setDecorations([]);
+    setStallId(-1);
+    setEditDecorations(false);
+};
 
     if (!stall) return null;
     const openEditDecorations = () => {
@@ -33,7 +38,7 @@ export const StallDrawer = () => {
 
     if (editDecorations) {
         return <div className="pointer-events-auto fair-glass absolute inset-0 overflow-y-auto">
-            <DacorationSection isEdit={true} onClose={() => setEditDecorations(false)} />
+            <DacorationSection isEdit={true} onClose={closeEditDecorations} />
         </div>
     }
 

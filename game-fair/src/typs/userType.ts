@@ -1,6 +1,7 @@
 import type { AxiosRequestConfig } from "axios";
+import { Profiler } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
-import { string } from "yup";
+import { number, string } from "yup";
 
 
 
@@ -71,4 +72,13 @@ export type Profile="ADMIN" | "MERCHANT" | "Gvir" | "Guest"
 
 export interface ProfileProps{
 Profiles:Profile[]
+}
+
+export interface MerchantType {
+    id: number
+    email: string
+    displayName: string
+    role: Profile
+    balance: number
+    createdAt: string
 }

@@ -7,17 +7,23 @@ import { NavLink, useNavigate } from "react-router"
 const Header = () => {
     const navigate = useNavigate();
     const { currentRole, logout, user } = useContext(AuthContext)
-    const links = currentRole === "Guest" ? headerLinks.filter((l) => l.to !== "game") : headerLinks.filter((l) => l.to === "game");
+    const links = currentRole === "MERCHANT" ? headerLinks.filter((l) => l.to === "game") : headerLinks.filter((l) => l.to !== "game");
+
 
     return <>
         <header dir="rtl" className="fair-header flex items-center gap-4 px-4 md:gap-8 md:px-8">
             <NavLink to="/" className="flex items-center gap-2">
                 <span className="text-2xl animate-sway inline-block">🎪</span>
-                <span className="fair-logo">יריד הלילה</span>
+                <span className="fair-logo">היריד הגדול</span>
+            </NavLink>
+
+            <NavLink to="/admin/merchants" className="flex items-center gap-2">
+                <span className="text-2xl animate-sway inline-block">🎪</span>
+                <span className="fair-logo">ניהול היריד</span>
             </NavLink>
 
             <Nav links={links} className="flex items-center gap-1" linkClassName="fair-nav-link" />
-
+            <p>לחצו על הקונים כדי להכיר</p>
             {currentRole != "Guest" && <div className="ms-auto flex items-center gap-3">
                 <p className="fair-user-chip">
                     <span className="fair-avatar">{user?.displayName?.[0] ?? "★"}</span>
