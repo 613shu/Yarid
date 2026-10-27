@@ -11,17 +11,31 @@ import { AddStallPage } from "../../pages/AddStallPage";
 export const StallDrawer = () => {
     const [addStock, setAddStock] = useState<boolean>(false);
     const [editDecorations, setEditDecorations] = useState<boolean>(false);
-    const { step, setStep } = useStall();
     const { stalls, selectedId, setSelectId } = useWorld();
     const stall = stalls.find((s) => s.id === selectedId);
     const navigate = useNavigate();
+    const { setStep, setDecorations, setStallId } = useStall();
+
+    useEffect(() => {
+        setAddStock(false);
+        setEditDecorations(false);
+    }, [selectedId]);
 
 
-
-    // כשעוברים לדוכן אחר — חוזרים לכרטיס הפרטים
-    useEffect(() => setAddStock(false), [selectedId]);
 
     if (!stall) return null;
+    const openEditDecorations = () => {
+        setStallId(stall.id);
+        setDecorations(stall.decorations);   // הקישוטים שכבר יש לדוכן
+        setStep("CONFIRMDECORATE");
+        setEditDecorations(true);
+    }
+
+    if (editDecorations) {
+        return <div className="pointer-events-auto fair-glass absolute inset-0 overflow-y-auto">
+            <DacorationSection isEdit={true} onClose={() => setEditDecorations(false)} />
+        </div>
+    }
 
     const boothCardDetails: [string, string | number][] = [
         ["מחיר ליחידה", `${stall.price} ₪`],
@@ -31,12 +45,8 @@ export const StallDrawer = () => {
 
     ];
 
-    if (editDecorations) {
-        { setStep("CONFIRMDECORATE") }
-        return <AddStallPage />
-    }
     return <>
-        < aside key = { stall.id } dir = "rtl" className = "hud-drawer fair-glass pointer-events-auto absolute bottom-20 left-5 w-[min(22rem,calc(100vw-2.5rem))]" >
+        < aside key={stall.id} dir="rtl" className="hud-drawer fair-glass pointer-events-auto absolute bottom-20 left-5 w-[min(22rem,calc(100vw-2.5rem))]" >
             <div className="fair-stripe h-7" />
             <div className="p-5 pt-3">
                 <div className="mb-1 flex items-start justify-between gap-3">
@@ -49,7 +59,7 @@ export const StallDrawer = () => {
                 <p className="mb-4 text-parchment/80">🛍️ {stall.product?.name}</p>
 
                 <button onClick={() => setAddStock(true)} className="fair-btn fair-btn-ghost fair-btn-sm mt-3">רכישת מלאי</button>
-                <button onClick={() => setEditDecorations(true)} className="fair-btn fair-btn-ghost fair-btn-sm mt-3">עריכת קישוטים </button>
+                <button onClick={openEditDecorations} className="fair-btn fair-btn-ghost fair-btn-sm mt-3">עריכת קישוטים</button>
 
                 {addStock ?
                     (

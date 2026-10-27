@@ -2,22 +2,21 @@ import { useState } from "react";
 import { useStall } from "../../context/StallContext";
 import type { decorationProps } from "../../typs/gameTyps";
 import { useTilt } from "../../hooks/useTilt";
-import {ICONS} from "../../constance/navLinks"
+import { ICONS } from "../../constance/navLinks"
 
 
-export const Decoration = ({ decoration }: decorationProps) => {
+export const Decoration = ({ decoration,locked }: decorationProps) => {
     const { name, id, points, cost } = decoration;
     const { step, decorations, setDecorations } = useStall();
-    const [selected, setSelected] = useState<boolean>(false);
     const tilt = useTilt(8);
+    const selected = decorations.some((d) => d.id === decoration.id);
+
 
     const toggleDeco = () => {
         if (selected) {
             setDecorations(decorations.filter((d) => d.id !== id));
-            setSelected(false);
         } else {
             setDecorations([...decorations, decoration]);
-            setSelected(true);
         }
     };
 
@@ -48,11 +47,13 @@ export const Decoration = ({ decoration }: decorationProps) => {
                     <p className="font-display text-2xl text-rose">₪{cost}</p>
                 </div>
             </div>
+            { locked && <span className="fair-chip mt-4">✓ כבר בדוכן</span>}
 
-            {step === "CONFIRMDECORATE" && (
-                <button onClick={toggleDeco} className={`fair-btn mt-4 w-full ${selected ? "fair-btn-ghost" : ""}`}>
-                    {selected ? "הסרת הקישוט" : "הוספה לדוכן"}
-                </button>
+            {step === "CONFIRMDECORATE" && !locked&&(
+
+            <button onClick={toggleDeco} className={`fair-btn mt-4 w-full ${selected ? "fair-btn-ghost" : ""}`}>
+                {selected ? "הסרת הקישוט" : "הוספה לדוכן"}
+            </button>
             )}
         </div>
     );

@@ -37,7 +37,8 @@ export interface StallContextType {
     decorations: decorationType[] | [],
     setDecorations: (dec: decorationType[]) => void,
     setCurrentProduct: (p: productType) => void,
-
+    stallId:number,
+    setStallId:(i:number)=>void
 
     step: stepType,
     setStep: (s: stepType) => void

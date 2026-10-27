@@ -15,17 +15,19 @@ export const StallContext = createContext<StallContextType>({
     decorations: [],
     setDecorations: () => { },
     step: "NAME",
-
+    stallId:-1,
+    setStallId:(id:number)=>{},
     setStep: (s: stepType) => { }
 })
 
 export const StallProvider = ({ children }: StallProviderProps) => {
     const [step, setStep] = useState<stepType>("NAME");
 
-    const [currentProduct, setProduct] = useState<productType | null>(null)
+    const [currentProduct, setProduct] = useState<productType | null>(null);
 
-    const [decorations, setDecorations] = useState<decorationType[]>([])
+    const [decorations, setDecorations] = useState<decorationType[]>([]);
 
+    const [stallId, setStallId] = useState<number >(-1);
 
 
 
@@ -34,10 +36,8 @@ export const StallProvider = ({ children }: StallProviderProps) => {
     }
 
 
-
-
     return (
-        <StallContext.Provider value={{ step, setStep, setCurrentProduct, currentProduct, decorations, setDecorations }}>
+        <StallContext.Provider value={{ setStallId,stallId,step, setStep, setCurrentProduct, currentProduct, decorations, setDecorations }}>
             {children}
         </StallContext.Provider>
     )

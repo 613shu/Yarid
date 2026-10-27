@@ -107,7 +107,8 @@ export type purchasType = {
 }
 
 export interface decorationProps {
-    decoration: decorationType
+    decoration: decorationType,
+    locked:boolean
 }
 export type shopListType=
 {
@@ -144,3 +145,7 @@ export interface stallProps {
 
 }
 
+export interface decorationSectionProps {
+    isEdit?: boolean,
+    onClose?: () => void
+}

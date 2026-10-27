@@ -18,7 +18,7 @@ export const StallPart = () => {
         {
             queryValues: {
 
-                queryKey: [token || "","stalls"],
+                queryKey: ["stall", token || ""],
                 url: "/stalls/mine",
                 params: { sort }
 
