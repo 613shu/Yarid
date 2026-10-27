@@ -1,4 +1,4 @@
-import type { LinkProps } from "../typs/userType"
+import type { LinkProps } from "../../typs/userType"
 import { Nav } from "./Nav"
 
 /* תפריט צף מעל היריד */

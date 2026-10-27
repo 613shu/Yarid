@@ -1,10 +1,10 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 import { type Profile, type useMyQuaryProps, type useMyQuaryType, type userType } from "../typs/userType"
-import type { AuthContextType, AuthProviderProps } from "../typs/ContextInterfaces"
+import type { AuthContextType, AuthProviderProps } from "../typs/contextTyps"
 import axios from "axios"
 import { api } from "../api/axiosInstance"
 import { useQuery } from "@tanstack/react-query"
-import { useMyQuery } from "../hooks/apiHooks"
+import { useMyQuery } from "../hooks/useMyQuery"
 
 
 

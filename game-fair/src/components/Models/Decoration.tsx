@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useStall } from "../context/StallContext";
-import type { decorationProps } from "../typs/gameTyps";
-import { useTilt } from "../hooks/useTilt";
+import { useStall } from "../../context/StallContext";
+import type { decorationProps } from "../../typs/gameTyps";
+import { useTilt } from "../../hooks/useTilt";
+import {ICONS} from "../../constance/navLinks"
 
-const ICONS = ["🏮", "🎏", "🎈", "✨", "🌸", "🎀", "🪅", "🎊"];
 
 export const Decoration = ({ decoration }: decorationProps) => {
     const { name, id, points, cost } = decoration;

@@ -1,18 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/System/FormInput";
 import type { stallFormValus } from "../typs/yups";
 import { ProductSection } from "./ProductsPage";
 import { useForm } from "react-hook-form";
-import { stallSchema } from "../resolvers/loginResolver";
+import { stallSchema } from "../typs/shemasResolver";
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useStall } from "../context/StallContext";
-import Link from "../components/Link";
+import Link from "../components/System/Link";
 import { api } from "../api/axiosInstance";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { DecorationPage, DacorationSection } from "./DecorationPage";
-import type { decorationType } from "../typs/gameTyps";
-import { useAddDecoration } from "../hooks/apiHooks";
+import {DacorationSection } from "./DecorationPage";
+import { useAddDecoration } from "../hooks/useAddDecoration";
 import { useBalance } from "../hooks/useBalance";
 import { StepTrail } from "../components/StepTrail";
 import { Loader } from "../components/hud/Loader";
@@ -25,8 +24,8 @@ export const AddStallPage = () => {
     const { addDecorations, isPending, isError } = useAddDecoration();
     const { balance } = useBalance();
     const queryClient = useQueryClient();
-
     const { currentProduct, setCurrentProduct, setDecorations, decorations, step, setStep } = useStall();
+
     useEffect(() => { setStep("NAME") }, [])
     useEffect(() => { setDecorations([]) }, [currentProduct, token])
 
@@ -93,9 +92,9 @@ export const AddStallPage = () => {
                 </div>
             return <>
                 <form onSubmit={handleSubmit(updateStall)} data-title="דוכן חדש" className="fair-panel fair-gate mx-auto flex w-fit flex-col items-center gap-2">
-                    <p className="mb-2 text-5xl animate-float">🏪</p>
                     <p className="mb-4 max-w-xs text-center text-parchment/75">כל דוכן גדול מתחיל בשם טוב. איך יקראו לדוכן שלך?</p>
                     <FormInput type="text" id="name" lable="שם הדוכן" registration={register("name")} errors={errors.name?.message} />
+                    <p>עלות שכירות דוכן :20 רובל ליום</p>
                     <button type="submit" className="fair-btn mt-4 w-full">המשך לבחירת מוצר ←</button>
                 </form>
             </>
@@ -107,7 +106,7 @@ export const AddStallPage = () => {
         case ("DECORATE"):
             return <>
                 <div data-title="קישוט הדוכן" className="fair-panel fair-gate mx-auto flex max-w-lg flex-wrap items-center justify-center gap-4 text-center">
-                    <p className="w-full text-5xl">🏮🎏🎈</p>
+                    <p className="w-full text-5xl">🩷💛🧡💚🤍</p>
                     <h1 className="fair-title w-full text-3xl">להוסיף קישוטים לדוכן?</h1>
                     <p className="mb-2 w-full text-parchment/75">דוכן מקושט מושך יותר קונים ומעלה את הניקוד שלך.</p>
                     <button onClick={() => { setStep("CONFIRMDECORATE") }} className="fair-btn fair-btn-gold">כן, בשמחה!</button>
@@ -127,19 +126,23 @@ export const AddStallPage = () => {
                     <button type="submit" className="fair-btn fair-btn-gold mt-4 w-full">🎉 פתיחת הדוכן</button>
                 </form>
             </>
-
+        case("UPDATE"):
+            return<>
+            <h1>השינויים נשמרו בהצלחה</h1>
+            </>
         case ("COMPLETE"):
             if (isError)
                 return <h1 className="fair-note fair-note-error mt-20 text-xl">לא הצלחנו להוסיף את הדוכן</h1>
             return <div className="flex flex-col items-center">
                 {isPending && <Loader text="בונים את הדוכן שלך..." />}
                 {stallMutation.isSuccess && <div data-title="מזל טוב!" className="fair-panel fair-gate mx-auto w-fit text-center">
-                    <p className="text-6xl animate-float">🎊</p>
+                    <p className="text-6xl animate-float">🎀</p>
                     <h1 className="fair-title fair-shimmer-text mt-3 text-4xl">הדוכן נפתח בהצלחה!</h1>
                     <p className="mt-2 text-parchment/75">הקונים כבר בדרך...</p>
                 </div>}
                 <Link content="מחכים לך ביריד ←" to="/game" className="fair-btn fair-btn-gold mt-10" />
             </div>
+           
     }
     })();
 

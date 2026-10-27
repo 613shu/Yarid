@@ -4,10 +4,10 @@ import { api } from "../../api/axiosInstance"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext"
 import type { registerFormValus } from "../../typs/yups"
-import FormInput from "../../components/FormInput"
+import FormInput from "../../components/System/FormInput"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useForm } from "react-hook-form"
-import { registerSchema } from "../../resolvers/loginResolver"
+import { registerSchema } from "../../typs/shemasResolver"
 import { useNavigate } from "react-router"
 
 

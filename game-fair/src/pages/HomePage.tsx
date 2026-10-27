@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Link from "../components/Link";
+import Link from "../components/System/Link";
 
 /* מסך הפתיחה */
 const FEATURES = [
@@ -18,7 +18,7 @@ export const HomePage = () => {
         <main dir="rtl" className="flex min-h-[calc(100vh-72px)] flex-col items-center justify-center px-6 py-16 text-center">
             <p className="fair-kicker mb-4 animate-rise">✦ היריד פתוח כל הלילה ✦</p>
             <h1 className="fair-title animate-rise text-6xl leading-[1.05] md:text-8xl">
-                ברוכים הבאים<br /><span className="fair-shimmer-text">ליריד הלילה</span>
+                ברוכים הבאים<br /><span className="fair-shimmer-text">ליריד הגדול</span>
             </h1>
             <p className="mt-6 max-w-xl animate-rise text-lg text-parchment/80 md:text-xl">
                 עולם תלת-ממדי קסום של אורות, מוזיקה וריח של ממתקים. פתחו דוכן, קשטו אותו ותנו לקונים להגיע.
@@ -26,9 +26,9 @@ export const HomePage = () => {
 
             <div className="mt-10 flex flex-wrap justify-center gap-4 animate-rise">
                 {guest ? <>
-                    <Link to="/register" content="🎟️ לכרטיס כניסה חינם" className="fair-btn fair-btn-gold text-xl" />
+                    <Link to="/register" content=" לכרטיס כניסה חינם" className="fair-btn fair-btn-gold text-xl" />
                     <Link to="/login" content="כבר יש לי כרטיס" className="fair-btn fair-btn-ghost text-xl" />
-                </> : <Link to="/game" content="🎪 כניסה ליריד" className="fair-btn fair-btn-gold text-xl" />}
+                </> : <Link to="/game" content=" כניסה ליריד" className="fair-btn fair-btn-gold text-xl" />}
             </div>
 
             <section className="mt-20 grid w-full max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -2,12 +2,22 @@
 export type genderType = "MALE" | "FEMALE" | "ANY";
 export type ageType = "YOUNG" | "OLD" | "ANY"
 export type StallStatusType = "ACTIVE" | "SUSPENDED"
+export type BoothType = {
+    name: string;
+    goods: string;
+    price?: number;
+    decorations: string[];
+    hot?: boolean;
+    selected?: boolean;
+    onSelect?: () => void;
+    onHover?: (on: boolean) => void;
+};
 
-export type updateDecorationsForStallType=
-{
-    stallId:number,
-    decorations:decorationType[]|[]
-}
+export type updateDecorationsForStallType =
+    {
+        stallId: number,
+        decorations: decorationType[] | []
+    }
 export type productType = {
     id: number,
     name: string,
@@ -51,41 +61,29 @@ export type stallType = {
     sales: salesProps
 
 }
+export interface BoothProps {
+    booth: BoothType
+}
 export interface SideBarButtonType {
     content: string,
     onClick: () => {},
 
 }
 
-export  type startPositionType=
-{
-    startX:number,
-    startY:number
-}
+export type startPositionType =
+    {
+        startX: number,
+        startY: number
+    }
 
-export type customerType={
-    
-      id: number,
-      nickname: string,
-      gender: genderType,
-      ageGroup: ageType,
-      targetStallId: number,
-      targetStallIds: [],
-      purchases: [{}];
-}
 
-export interface customerProps{
-    customer:customerType,
-
-}
 
 export interface categoryProps {
     id: number,
     name: string
 }
-export interface updateDecorationForStallProps
-{
-    decoData:updateDecorationsForStallType
+export interface updateDecorationForStallProps {
+    decoData: updateDecorationsForStallType
 }
 
 export interface productProps {
@@ -103,11 +101,43 @@ export interface salesProps {
 
 
 
+export type purchasType = {
+    stallId: number,
+    price: number
+}
+
 export interface decorationProps {
     decoration: decorationType
 }
+export type shopListType=
+{
+    productId:number,
+    purchased:boolean
+}
 
+export type customerType = {
 
+    id: number,
+    nickname: string,
+    gender: genderType,
+    ageGroup: ageType,
+    targetStallId: number,
+    targetStallIds: number[],
+    purchases: purchasType[],
+    shoppingList:shopListType[]
+}
+
+export interface ShopperProps {
+    customer: customerType,
+    target: { x: number, z: number },
+    buying: boolean,
+    onSelect: (id: number) => void,
+}
+
+export interface customerProps {
+    customer: customerType,
+
+}
 
 export interface stallProps {
     stall: stallType;

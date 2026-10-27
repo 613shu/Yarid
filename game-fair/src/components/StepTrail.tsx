@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import type { stepType } from "../typs/ContextInterfaces";
+import type { stepType } from "../typs/contextTyps";
 
 const STEPS: { key: stepType[]; label: string }[] = [
     { key: ["NAME"], label: "שם" },

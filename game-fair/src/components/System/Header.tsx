@@ -1,7 +1,7 @@
 import { useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
+import { AuthContext } from "../../context/AuthContext"
 import { Nav } from "./Nav"
-import { headerLinks } from "../constance/navLinks"
+import { headerLinks } from "../../constance/navLinks"
 import { NavLink, useNavigate } from "react-router"
 
 const Header = () => {

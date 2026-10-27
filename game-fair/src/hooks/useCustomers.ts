@@ -1,4 +1,4 @@
-import { useMyQuery } from "./apiHooks";
+import { useMyQuery } from "./useMyQuery";
 
 export const useCustomers = () => {
 

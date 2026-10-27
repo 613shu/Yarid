@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useMyQuery } from "./apiHooks";
+import { useMyQuery } from "./useMyQuery";
 
 export const useBalance = () => {
 

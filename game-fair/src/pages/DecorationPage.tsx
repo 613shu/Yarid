@@ -1,11 +1,12 @@
 import { Loader } from "../components/hud/Loader"
-import Link from "../components/Link";
-import { Decoration } from "../components/Decoration";
+import Link from "../components/System/Link";
+import { Decoration } from "../components/Models/Decoration";
 import { useStall } from "../context/StallContext";
-import { useMyQuery } from "../hooks/apiHooks";
+import { useMyQuery } from "../hooks/useMyQuery";
 import type { decorationProps, decorationType, updateDecorationForStallProps, updateDecorationsForStallType } from "../typs/gameTyps";
-import { useMutation } from "@tanstack/react-query";
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import { api } from "../api/axiosInstance";
+import { useAddDecoration } from "../hooks/useAddDecoration";
 
 
 
@@ -16,8 +17,9 @@ import { api } from "../api/axiosInstance";
 
 
 export const DacorationSection = () => {
-  const { step, setStep } = useStall();
+  const { step, setStep ,decorations,setDecorations} = useStall();
   const sort = "name";
+  const {addDecorations}=useAddDecoration();
 
   const { data: products = [], isLoading, error } = useMyQuery(
     { queryValues: { queryKey: ["decorations"], url: "/decorations", params: { sort } } })
@@ -35,7 +37,10 @@ export const DacorationSection = () => {
     setStep("PRICE");
 
   }
-
+  // const saveChanges=()=>
+  // {
+  //   addDecorations()
+  // }
   return (
     <>
       <main dir="rtl" className="px-6 pt-10 pb-10">
@@ -51,6 +56,7 @@ export const DacorationSection = () => {
       </main>
 
       {step==="CONFIRMDECORATE"&& <button onClick={completeDecorate} className="fair-btn fair-btn-gold sticky bottom-6 z-40 mx-auto mb-12 flex! w-fit"> המשך לקביעת מחיר ←</button>}
+      {step==="UPDATE"&& <button onClick={completeDecorate} className="fair-btn fair-btn-gold sticky bottom-6 z-40 mx-auto mb-12 flex! w-fit"> המשך לקביעת מחיר ←</button>}
     </>
   );
 }

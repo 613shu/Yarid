@@ -1,4 +1,4 @@
-import type { LinkProps, NavProps } from "../typs/userType"
+import type { LinkProps, NavProps } from "../../typs/userType"
 import Link from "./Link"
 
 

@@ -1,34 +1,35 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "../api/axiosInstance";
-import { Stall } from "../components/Stall"
+import { Stall } from "./Models/Stall"
 import { AuthContext } from "../context/AuthContext";
 import type { stallType } from "../typs/gameTyps";
-import { useWorld } from "./world/WorldContext";
-import { EmptyPlot } from "./world/Booth";
-import { INNER_SLOTS, slotPlacement } from "./world/layout";
+import { useWorld } from "../context/WorldContext";
+import { useMyQuery } from "../hooks/useMyQuery";
+import { INNER_SLOTS, slotPlacement } from "./World/positions";
+import { EmptyPlot } from "./World/Booth";
 
 export const StallPart = () => {
     const { token } = useContext(AuthContext);
     const { setStalls } = useWorld();
     const navigate = useNavigate();
-
     const sort = "slot";
 
-    const getMyStalls = async () => {
-        const res = await api.get("/stalls/mine", { params: { sort } });
-        return res.data;
-    }
+    const { data: myStalls=[]  } = useMyQuery(
+        {
+            queryValues: {
 
-    const { data: myStalls = [] } = useQuery<stallType[]>({
-        queryKey: ["stall", token],
-        queryFn: getMyStalls,
-        enabled: !!token
-    })
+                queryKey: [token || "","stalls"],
+                url: "/stalls/mine",
+                params: { sort }
+
+            }
+        }
+    )
 
     // משתפים את רשימת הדוכנים עם שכבת הממשק ועם הלקוחות
-    useEffect(() => { setStalls(myStalls) }, [myStalls, setStalls]);
+    useEffect(() => 
+        { setStalls(myStalls) }, 
+    [myStalls]);
 
     // מקומות פנויים בטבעת הפנימית
     const free = Array.from({ length: Math.max(0, INNER_SLOTS - myStalls.length) }, (_, i) => myStalls.length + i);

@@ -1,7 +1,7 @@
 import { FairWorld } from "./FairWorld";
 import { Booth } from "./Booth";
 import { Shopper } from "./Shopper";
-import { frontOf, INNER_SLOTS, slotPlacement } from "./layout";
+import { frontOf, INNER_SLOTS, slotPlacement } from "./positions";
 
 /* עולם תצוגה מסתובב מאחורי מסכי הכניסה — דוכנים ולקוחות לדוגמה, בלי נתונים אמיתיים */
 
@@ -19,12 +19,26 @@ export default function Backdrop() {
                 const p = slotPlacement(i);
                 return (
                     <group key={name} position={[p.x, 0, p.z]} rotation={[0, p.rotY, 0]}>
-                        <Booth name={name} goods={goods} decorations={Array.from({ length: (i % 3) + 1 }, () => "")} />
+                        <Booth booth={{ name, goods, decorations: Array.from({ length: (i % 3) + 1 }, () => "") }} />
                     </group>
                 );
             })}
             {NAMES.map((n, i) => (
-                <Shopper key={n} name={n} female={i % 2 === 0} old={i % 4 === 3} target={frontOf(slotPlacement(i), 3)} />
+                <Shopper
+                    key={n}
+                    customer={{
+                        id: i,
+                        nickname: n,
+                        gender: i % 2 === 0 ? "FEMALE" : "MALE",
+                        ageGroup: i % 4 === 3 ? "OLD" : "YOUNG",
+                        targetStallId: 0,
+                        targetStallIds: [],
+                        purchases: [],
+                    }}
+                    target={frontOf(slotPlacement(i), 3)}
+                    buying={false}
+                    onSelect={() => {}}
+                />
             ))}
         </FairWorld>
     );

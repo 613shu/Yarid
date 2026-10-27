@@ -3,7 +3,7 @@ import { useFrame } from "@react-three/fiber";
 import { Sparkles, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import { cobbleTexture, grassTexture, stripeTexture, woodTexture } from "./textures";
-import { INNER_SLOTS, slotPlacement } from "./layout";
+import { INNER_SLOTS, slotPlacement } from "./positions";
 
 /* הכיכר: רצפה, קרוסלה, גלגל ענק, שרשראות אורות, עצים, פנסי שמיים וזיקוקים */
 

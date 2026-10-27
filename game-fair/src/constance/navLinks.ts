@@ -11,9 +11,7 @@ export const headerLinks: LinkProps[] = [
 export const sideBarLinks: LinkProps[] = [
    { to: "addStall", content: "הוסף דוכן" },
    { to: "decoration", content: "קישוטים" },
-   { to: "products", content: "רכישת מלאי" }
+   { to: "products", content: "מוצרים" }
 ]
 
-
-export const imgMales = ["👨‍🦰", "👵", "🫅", "👲", "🥷", "👩‍🦯", "👨‍🦼‍➡️", "🧎‍➡️", "🧍‍♀️", "🧎‍♂️", "🧎‍♀️", "🚶‍♀️", "🚶‍➡️", "🚶‍♂️‍➡️", "🚶", "🏃‍♂️‍➡️", "🏃", "🏃‍♂️", "🏃‍♀️", "🕺"];
-export const imgFemales = ["👩‍🦰", "👱‍♀️", "👩‍💻", "🧑‍🚒", "🤱", "🧑‍🍼", "🙍‍♀️", "💁‍♀️", "👩‍🦼"];
+export const ICONS = ["🩷", "🎏", "🎈", "✨", "🌸", "🎀", "🪅", "🎊"];

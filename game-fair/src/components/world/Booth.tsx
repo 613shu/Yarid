@@ -3,26 +3,19 @@ import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import { stripeTexture, woodTexture } from "./textures";
-import { AWNING_PALETTES, hashHue } from "./layout";
+import { AWNING_PALETTES, hashHue } from "./positions";
+import type { BoothProps } from "../../typs/gameTyps";
 
 /* דוכן יריד תלת-ממדי: דלפק עץ, עמודים, סוכך מפוספס, שלט, סחורה וקישוטים */
 
-type BoothProps = {
-    name: string;
-    goods: string;
-    price?: number;
-    decorations: string[];
-    hot?: boolean;
-    selected?: boolean;
-    onSelect?: () => void;
-    onHover?: (on: boolean) => void;
-};
 
 const W = 3.6; // רוחב
 const D = 2.2; // עומק
 const H = 3.1; // גובה העמודים
 
-export const Booth = ({ name, goods, price, decorations, hot, selected, onSelect, onHover }: BoothProps) => {
+export const Booth = ({booth}: BoothProps) => {
+  const  { name, goods, price, decorations, hot, selected, onSelect, onHover }=booth;
+  
     const group = useRef<THREE.Group>(null);
     const lantern = useRef<THREE.Mesh>(null);
     const balloons = useRef<THREE.Group>(null);
@@ -204,7 +197,7 @@ export const EmptyPlot = ({ onOpen }: { onOpen?: () => void }) => {
             </mesh>
             <Html position={[0, 1.6, 0]} center distanceFactor={14} zIndexRange={[10, 0]}>
                 <button dir="rtl" onClick={onOpen} className="world-sign world-sign-empty text-sm">
-                    ✨ מקום פנוי
+                     מקום פנוי
                 </button>
             </Html>
         </group>

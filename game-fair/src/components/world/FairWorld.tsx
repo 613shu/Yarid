@@ -3,9 +3,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { CameraControls, Environment, Lightformer } from "@react-three/drei";
 import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing";
 import * as THREE from "three";
-import { Carousel, FerrisWheel, Fireworks, Ground, NightSky, SkyLanterns, StringLights, Trees } from "./Plaza";
-import { useWorld } from "./WorldContext";
-import { frontOf, slotPlacement } from "./layout";
+import { Carousel, FerrisWheel, Fireworks, Ground, NightSky, SkyLanterns, StringLights, Trees } from "../World/Plaza";
+import { useWorld } from "../../context/WorldContext";
+import { frontOf, slotPlacement } from "./positions";
 
 /* הקנבס הראשי של היריד: אור, ערפל, מצלמה חופשית ואפקטים */
 
@@ -84,14 +84,14 @@ const Rig = ({ mode }: { mode: Mode }) => {
 };
 
 export const FairWorld = ({ mode = "play", children }: { mode?: Mode; children?: ReactNode }) => {
-    const { select } = useWorld();
+    const { setSelectId } = useWorld();
     return (
         <Canvas
             shadows
             dpr={mode === "play" ? [1, 1.75] : [1, 1.25]}
             camera={{ position: [0, 60, 95], fov: 50, near: 0.5, far: 400 }}
             gl={{ antialias: true, powerPreference: "high-performance" }}
-            onPointerMissed={() => select(null)}
+            onPointerMissed={() => setSelectId(null)}
         >
             <color attach="background" args={["#0a0e2b"]} />
             <fog attach="fog" args={["#141a45", 45, 150]} />

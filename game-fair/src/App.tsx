@@ -1,12 +1,12 @@
 import { lazy, Suspense, useMemo } from 'react'
 import './App.css'
-import Header from './components/Header'
+import Header from './components/System/Header'
 import { Outlet, useLocation } from 'react-router'
 
-const Backdrop = lazy(() => import('./components/world/Backdrop'))
+const Backdrop = lazy(() => import('./components/World/Backdrop'))
 
 /* פנסי שמיים קלילים שעולים מאחורי התוכן */
-const Lanterns = () => {
+export const Lanterns = () => {
   const items = useMemo(() => Array.from({ length: 14 }, (_, i) => ({
     left: `${(i * 37) % 100}%`,
     style: {

@@ -1,4 +1,4 @@
-import type { FormInputProps } from "../typs/userType"
+import type { FormInputProps } from "../../typs/userType"
 
 const FormInput = (valus: FormInputProps) => {
     const { id, lable, type, registration, errors } = valus

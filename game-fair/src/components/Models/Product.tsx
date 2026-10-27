@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useStall } from "../context/StallContext";
-import type { productProps } from "../typs/gameTyps";
-import { useTilt } from "../hooks/useTilt";
+import { useStall } from "../../context/StallContext";
+import type { productProps } from "../../typs/gameTyps";
+import { useTilt } from "../../hooks/useTilt";
 
 const GENDER: Record<string, string> = { MALE: "גברים", FEMALE: "נשים", ANY: "כולם" };
 const AGE: Record<string, string> = { YOUNG: "צעירים", OLD: "מבוגרים", ANY: "כל הגילאים" };

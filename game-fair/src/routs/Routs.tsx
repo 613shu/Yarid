@@ -9,7 +9,7 @@ import { DecorationPage } from "../pages/DecorationPage";
 import { ProductPage } from "../pages/ProductsPage";
 import {  AddStallPage } from "../pages/AddStallPage";
 import { HomePage } from "../pages/HomePage";
-import Link from "../components/Link";
+import Link from "../components/System/Link";
 
 
 
@@ -20,7 +20,7 @@ export const routs = createBrowserRouter(
             path: "/", element: <App />, children: [
                 { path: "/login", element: <ProtectedRouts Profiles={["Guest"]} />, children: [{ path: "", element: <LoginPage /> }] },
                 { path: "/register", element: <ProtectedRouts Profiles={["Guest"]} />, children: [{ path: "", element: <RegisterPage /> }] },
-                { index: true, element: <HomePage /> },
+                { path: "", element: <HomePage /> },
                 { path: "*", element: <div data-title="אבדנו בדרך" className="fair-panel fair-gate mx-auto w-fit text-center"><p className="text-6xl">🧭</p><h3 className="fair-title mt-3 text-2xl">אין כאן כלום</h3><Link to="/" content="חזרה לכיכר" className="fair-btn mt-6" /></div> },
                 {
                     path: "/game", element: <ProtectedRouts Profiles={["ADMIN", "Gvir", "MERCHANT"]} />,

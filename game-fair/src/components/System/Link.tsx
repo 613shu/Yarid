@@ -1,5 +1,5 @@
 import { NavLink } from "react-router"
-import type { LinkProps } from "../typs/userType"
+import type { LinkProps } from "../../typs/userType"
 
 
 

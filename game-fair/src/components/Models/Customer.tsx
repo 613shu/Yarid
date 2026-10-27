@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import type { customerProps } from "../typs/gameTyps";
-import { randBetween } from "../utils/random";
-import { Shopper } from "./world/Shopper";
-import { useWorld } from "./world/WorldContext";
-import { frontOf, slotPlacement } from "./world/layout";
+import type { customerProps } from "../../typs/gameTyps";
+import { randBetween } from "../../utils/random";
+import { useWorld } from "../../context/WorldContext";
+import { frontOf, slotPlacement } from "../World/positions";
+import { Shopper } from "../World/Shopper";
 
 /* נקודה אקראית בכיכר — בין הקרוסלה לדוכנים */
 const randomSpot = () => {
@@ -14,9 +14,9 @@ const randomSpot = () => {
 
 /* לקוח וירטואלי: מסתובב ביריד ומדי פעם ניגש לדוכן שהוא רוצה לקנות בו */
 export const Customer = ({ customer }: customerProps) => {
-    const { nickname, gender, targetStallId, ageGroup, targetStallIds, purchases } = customer;
+    const { targetStallId, targetStallIds, purchases} = customer;
     const { stalls, slotOf } = useWorld();
-
+    const { setClickedWakerId } = useWorld();
     const [stepMs] = useState(() => Math.round(randBetween(3000, 6000)));
     const [tick, setTick] = useState(0);
 
@@ -26,10 +26,7 @@ export const Customer = ({ customer }: customerProps) => {
     }, [stepMs])
 
     // רשימת הדוכנים שהלקוח מעוניין בהם
-    const wanted = useMemo(() => {
-        const ids = new Set<number>([targetStallId, ...((targetStallIds ?? []) as number[])].filter(Boolean));
-        return stalls.filter((s) => ids.has(s.id));
-    }, [stalls, targetStallId, targetStallIds]);
+ const wanted = stalls.filter((s) => targetStallIds.includes(s.id));
 
     // בכל "צעד": פעם אחת לדוכן מבוקש, פעם אחת שיטוט
     const goingToStall = wanted.length > 0 && tick % 2 === 1;
@@ -41,14 +38,11 @@ export const Customer = ({ customer }: customerProps) => {
         }
         return randomSpot();
     }, [tick, goingToStall, wanted, slotOf]);
-
-    return (
+    return <>
         <Shopper
-            name={nickname}
-            female={gender === "FEMALE"}
-            old={ageGroup === "OLD"}
+            customer={customer}
             target={target}
-            buying={goingToStall && (purchases?.length ?? 0) > 0}
-        />
-    );
+            buying={goingToStall && purchases.length > 0}
+            onSelect={setClickedWakerId}
+        /></>
 };

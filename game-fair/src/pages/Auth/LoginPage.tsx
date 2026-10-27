@@ -7,9 +7,9 @@ import { AuthContext } from "../../context/AuthContext";
 import type { SubmitEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import type { loginFormValus } from "../../typs/yups"
-import { loginSchema } from "../../resolvers/loginResolver"
+import { loginSchema } from "../../typs/shemasResolver"
 import { yupResolver } from "@hookform/resolvers/yup";
-import FormInput from "../../components/FormInput";
+import FormInput from "../../components/System/FormInput";
 
 
 const LoginPage = () => {
