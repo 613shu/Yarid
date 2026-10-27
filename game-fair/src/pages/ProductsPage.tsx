@@ -10,8 +10,14 @@ import { useProducts } from "../hooks/useProducts"
 
 export const ProductSection = () => {
     const { step } = useStall();
-    const sort = "name";
     const {products,isLoading,error}=useProducts();
+    const sort = "name";
+
+    const findProduct=()=>
+    {
+        
+    }
+
 
     if (isLoading)
         return <>

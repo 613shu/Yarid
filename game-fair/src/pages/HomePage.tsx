@@ -21,7 +21,7 @@ export const HomePage = () => {
                 ברוכים הבאים<br /><span className="fair-shimmer-text">ליריד הגדול</span>
             </h1>
             <p className="mt-6 max-w-xl animate-rise text-lg text-parchment/80 md:text-xl">
-                עולם תלת-ממדי קסום של אורות, מוזיקה וריח של ממתקים. פתחו דוכן, קשטו אותו ותנו לקונים להגיע.
+                עולם תלת-ממדי קסום של אורות והשראה. כל אחד יכול להיות גביר
             </p>
 
             <div className="mt-10 flex flex-wrap justify-center gap-4 animate-rise">

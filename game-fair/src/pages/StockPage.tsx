@@ -22,10 +22,10 @@ export const StockPage = ({stallId}:{stallId:number}) => {
     if (isPending)
         return <Loader text="רוכש מלאי" />
     if (isSuccess)
-        return <h1>המלאי התווסף בהצלחה</h1>
+        return <h1 className="fair-note mt-4 border-2! border-teal! text-lg text-lantern-soft shadow-[0_0_40px_-10px_rgb(31_181_164_/_0.75)]">✅ המלאי התווסף בהצלחה</h1>
 
     if (isError)
-        return <h1>לא הצלחנו להוסיף</h1>
+        return <h1 className="fair-note fair-note-error mt-4 border-2! border-danger/70! text-lg shadow-[0_0_40px_-10px_rgb(255_143_143_/_0.6)]">⚠️ לא הצלחנו להוסיף מלאי</h1>
 
 
     return <>
