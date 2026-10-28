@@ -1,9 +1,11 @@
+import type { UseQueryOptions } from "@tanstack/react-query";
 import type { AxiosRequestConfig } from "axios";
 import { Profiler } from "react";
 import type { UseFormRegisterReturn } from "react-hook-form";
 import { number, string } from "yup";
 
 
+export type sortByType="name"|"price"|"popularity";
 
 export type useMyMutateType={
      queryKey:string,
@@ -21,7 +23,8 @@ export type useMyQuaryType={
     refetchOnWindowFocus?:boolean,
     url:string,
     params?:AxiosRequestConfig["params"],
-    refetchInterval?:number
+    refetchInterval?:number,
+    placeholderData?:UseQueryOptions["placeholderData"],
 
 
 
