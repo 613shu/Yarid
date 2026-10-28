@@ -23,7 +23,7 @@ export const AuthContext = createContext<AuthContextType>({
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
-    const { data: user, error, isLoading } = useMyQuery({ queryValues: { url: "/auth/me", queryKey:[token||"token"] } })
+    const { data: user, error, isLoading } = useMyQuery({ queryValues: { url: "/auth/me", queryKey:[token||"token"], enabled:token!=null } })
     
 
     const currentRole: Profile = user?.role || "Guest"

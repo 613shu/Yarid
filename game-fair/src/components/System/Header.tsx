@@ -18,10 +18,6 @@ const Header = () => {
                 <span className="fair-logo">היריד הגדול</span>
             </NavLink>
 
-            {currentRole === "ADMIN" && <NavLink to="/admin" className="flex items-center gap-2">
-                <span className="text-2xl animate-sway inline-block">🎪</span>
-                <span className="fair-logo">ניהול היריד</span>
-            </NavLink>}
 
             <Nav links={links} className="flex items-center gap-1" linkClassName="fair-nav-link" />
             <p>לחצו על הקונים כדי להכיר</p>

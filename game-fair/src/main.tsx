@@ -11,7 +11,14 @@ import { WorldProvider } from './context/WorldContext.tsx'
 
 
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(
+ { defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: false,
+    },
+  }
+});
 createRoot(document.getElementById('root')!).render(
 
   <StrictMode>
