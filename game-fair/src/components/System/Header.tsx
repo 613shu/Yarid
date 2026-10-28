@@ -8,7 +8,9 @@ import type { LinkProps } from "../../typs/userType"
 const Header = () => {
     const navigate = useNavigate();
     const { currentRole, logout, user } = useContext(AuthContext)
-    const links =headerLinks.filter((l:LinkProps)=>{l.profiles?.includes(currentRole)})
+    const links =headerLinks.filter((l: LinkProps) => {
+        return l.profiles?.includes(currentRole);
+    })
 
 
     return <>

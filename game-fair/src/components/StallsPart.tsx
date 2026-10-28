@@ -14,7 +14,7 @@ export const StallPart = () => {
     const navigate = useNavigate();
     const sort = "slot";
 
-    const { data: myStalls=[]  } = useMyQuery(
+    const { data } = useMyQuery(
         {
             queryValues: {
 
@@ -27,9 +27,16 @@ export const StallPart = () => {
     )
 
     // משתפים את רשימת הדוכנים עם שכבת הממשק ועם הלקוחות
-    useEffect(() => 
-        { setStalls(myStalls) }, 
-    [myStalls]);
+    useEffect(() => {
+        if (data) {
+            setStalls(data);
+        }
+    }, [data]);
+
+    let myStalls: stallType[] = [];
+    if (data) {
+        myStalls = data;
+    }
 
     // מקומות פנויים בטבעת הפנימית
     const free = Array.from({ length: Math.max(0, INNER_SLOTS - myStalls.length) }, (_, i) => myStalls.length + i);

@@ -9,7 +9,9 @@ export const SideBar = ({ links }: { links: LinkProps[] }) => {
     return <>
         <aside dir="rtl" className="hud-dock fair-glass w-56">
             <h2 className="fair-title mb-1 text-center text-xl">תפריט היריד</h2>
-            <Nav links={links.filter((l:LinkProps)=>{l.profiles?.includes(currentRole)})}
+            <Nav links={links.filter((l: LinkProps) => {
+                return l.profiles?.includes(currentRole);
+            })}
                 className="flex flex-col gap-2"
                 linkClassName="hud-dock-link"></Nav>
         </aside>

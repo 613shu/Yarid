@@ -33,13 +33,16 @@ export const ShopperCard = () => {
                     <button onClick={() => setClickedWakerId(null)} aria-label="סגירה" className="fair-btn fair-btn-ghost fair-btn-sm">✕</button>
                 </div>
 
-                /</div>
+                </div>
             <div className="mt-4">
                 <h3>אני רוצה לקנות:</h3>
                 <ul>
                     {shoppingList.map((item: shopListType) => {
                         if (products) {
                             const pro = products.find((p: productType) => p.id === item.productId);
+                            if (!pro) {
+                                return null;
+                            }
 
 
                             return (
