@@ -1,5 +1,5 @@
 import * as yup from "yup"
-import {loginSchema, registerSchema, stallSchema,stockSchema} from "./shemasResolver"
+import {loginSchema, registerSchema,stallSchema,stockSchema} from "./shemasResolver"
 
 export type loginFormValus=yup.InferType<typeof loginSchema>;
 

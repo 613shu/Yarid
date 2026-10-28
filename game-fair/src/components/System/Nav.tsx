@@ -8,7 +8,7 @@ export const Nav=({links,className,linkClassName}:NavProps)=>
 return<>
 <nav className={className}>
     {links.map((l)=>
-    <Link to={l.to} content={l.content}  className={linkClassName}
+    <Link to={l.to} content={l.content}  className={linkClassName} profiles={l.profiles}
     key={l.to} />
 
     )}

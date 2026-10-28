@@ -22,7 +22,7 @@ export const AddStallPage = () => {
 
     const { user, token } = useContext(AuthContext)
     const { addDecorations, isPending, isError } = useAddDecoration();
-    const { balance } = useBalance();
+    const { balance ,isLoading: balanceLoading} = useBalance();
     const queryClient = useQueryClient();
     const { currentProduct, setCurrentProduct, setDecorations, decorations, step, setStep, stallId, setStallId } = useStall();
 
@@ -64,7 +64,7 @@ export const AddStallPage = () => {
         (step === "NAME" && setStep("PRODUCT"));
 
         if (step === "PRICE") {
-            const stallData = await stallMutation.mutateAsync({ ...fields, productId: currentProduct?.id });
+            const stallData = await stallMutation.mutateAsync({ ...fields, productId: currentProduct?.id||-1 });
 
             addDecorations(decorations, stallData.id);
 
@@ -83,6 +83,7 @@ export const AddStallPage = () => {
         switch (step) {
             case ("NAME"):
                 if (balance < 300)
+                    if(balanceLoading) return <Loader text="סופרים את הקופה..."/> 
                     return <div data-title="הקופה ריקה" className="fair-panel fair-gate mx-auto w-fit text-center">
                         <p className="text-6xl">🪙</p>
                         <h1 className="fair-title mt-3 text-2xl">אין לך מספיק רובלים לדוכן חדש</h1>

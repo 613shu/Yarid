@@ -3,11 +3,12 @@ import { AuthContext } from "../../context/AuthContext"
 import { Nav } from "./Nav"
 import { headerLinks } from "../../constance/navLinks"
 import { NavLink, useNavigate } from "react-router"
+import type { LinkProps } from "../../typs/userType"
 
 const Header = () => {
     const navigate = useNavigate();
     const { currentRole, logout, user } = useContext(AuthContext)
-    const links = currentRole === "MERCHANT" ? headerLinks.filter((l) => l.to === "game") : headerLinks.filter((l) => l.to !== "game");
+    const links =headerLinks.filter((l:LinkProps)=>{l.profiles?.includes(currentRole)})
 
 
     return <>

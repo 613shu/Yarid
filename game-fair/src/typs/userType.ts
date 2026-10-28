@@ -58,13 +58,15 @@ export interface LinkProps
 {
        to:string,
     content:string,
-    className?:string
+    className?:string,
+    profiles?:Profile[]
 }
 export interface NavProps
 {
     links:LinkProps[],
     className?:string,
     linkClassName?:string
+
 }
 
 
