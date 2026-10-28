@@ -82,14 +82,17 @@ export const AddStallPage = () => {
     const content = (() => {
         switch (step) {
             case ("NAME"):
-                if (balance < 300)
-                    if(balanceLoading) return <Loader text="סופרים את הקופה..."/> 
+                if (balanceLoading) {
+                    return <Loader text="סופרים את הקופה..."/>;
+                }
+                if (balance < 300) {
                     return <div data-title="הקופה ריקה" className="fair-panel fair-gate mx-auto w-fit text-center">
                         <p className="text-6xl">🪙</p>
                         <h1 className="fair-title mt-3 text-2xl">אין לך מספיק רובלים לדוכן חדש</h1>
                         <p className="mt-2 text-parchment/70">פתיחת דוכן עולה 300 רובל. מכרו עוד קצת וחזרו!</p>
                         <Link to="/game" content="חזרה ליריד" className="fair-btn fair-btn-wood mt-6" />
-                    </div>
+                    </div>;
+                }
                 return <>
                     <form onSubmit={handleSubmit(updateStall)} data-title="דוכן חדש" className="fair-panel fair-gate mx-auto flex w-fit flex-col items-center gap-2">
                         <p className="mb-4 max-w-xs text-center text-parchment/75">כל דוכן גדול מתחיל בשם טוב. איך יקראו לדוכן שלך?</p>
