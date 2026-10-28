@@ -1,5 +1,6 @@
 import { Merchant } from "../components/Models/Merchant"
 import { useMyQuery } from "../hooks/useMyQuery"
+import { Loader } from "../components/hud/Loader"
 import type { MerchantType } from "../typs/userType"
 
 export const MerchantsPage=()=>
@@ -13,11 +14,15 @@ export const MerchantsPage=()=>
     })
 
 
+    if (isLoading) return <Loader text="טוענים סוחרים..." />
+
+    if (error) return <p>שגיאה בטעינת הסוחרים</p>
+
     return<>
     {data.items.map((m:MerchantType)=>
     {
 
-        <Merchant merchant={m} key={m.id}/>
+        return <Merchant merchant={m} key={m.id}/>
     })}
     </>
 }

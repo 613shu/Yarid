@@ -46,7 +46,11 @@ const LoginPage = () => {
 
 
        login(res.token);
-        navigate("/game");
+        if (res.user.role === "ADMIN") {
+            navigate("/admin");
+        } else {
+            navigate("/game");
+        }
 
 
     }
